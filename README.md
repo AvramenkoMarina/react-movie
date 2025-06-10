@@ -14,6 +14,9 @@ public/
   index.html
 
 src/
+  api/
+    moviesApi.ts
+
   app/
     hooks.ts
     store.ts
@@ -26,9 +29,11 @@ src/
 
   types/
     Movie.ts
+    Status.ts
     UploadedFile.ts
 
   utils/
+    api.ts
     parseMoviesFromText.ts
 
   App.tsx

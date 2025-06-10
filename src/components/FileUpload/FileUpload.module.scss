@@ -21,14 +21,15 @@
     user-select: none;
     text-align: center;
 
+    &:hover {
+      background-color: #575555;
+    }
+
     @media (min-width: 767px) {
       padding: 10px 20px;
       font-size: 17px;
       font-weight: 600;
-    }
-
-    &:hover {
-      background-color: #575555;
+      cursor: pointer;
     }
   }
 }

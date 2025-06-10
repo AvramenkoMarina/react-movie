@@ -49,12 +49,9 @@
     gap: 5px;
 
     @media (max-width: 767px) {
-      padding-top: 1rem;
       display: flex;
-      flex-direction: column;
       gap: 10px;
-      align-items: flex-end;
-      width: 100%;
+      // width: 100%;
     }
   }
 
@@ -81,7 +78,7 @@
     border-radius: 50px;
 
     @media (max-width: 767px) {
-      padding: 8px 15px;
+      padding: 10px 15px;
     }
 
     input {
