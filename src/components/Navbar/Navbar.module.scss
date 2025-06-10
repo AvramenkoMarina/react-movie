@@ -90,6 +90,10 @@
       font-size: 18px;
       max-width: 200px;
 
+      &:focus::placeholder {
+        color: transparent;
+      }
+
       @media (max-width: 767px) {
         max-width: 80px;
         padding: 2px;
