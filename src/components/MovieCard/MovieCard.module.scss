@@ -1,0 +1,35 @@
+.card {
+  width: 15rem;
+  border-radius: 1rem;
+  box-shadow: 0px 10px 8px #999;
+  padding: 10px;
+
+  @media (max-width: 480px) {
+    width: 90%;
+  }
+
+  &__movie {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+
+  &__title {
+    display: flex;
+    font-size: 20px;
+
+    h3 {
+      margin: 0 auto;
+      font-size: 16px;
+    }
+
+    img {
+      width: 20px;
+    }
+  }
+
+  &__deleteButton {
+    cursor: pointer;
+  }
+}
