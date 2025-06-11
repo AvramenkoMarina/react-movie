@@ -48,8 +48,18 @@ src/
 
 ## Setup Instructions
 
+### Local launch (without Docker)
+
 - git clone https://github.com/your-username/your-repo-name.git
 - cd your-repo-name
 - npm install
 - npm start
 - Open http://localhost:3000 in your browser.
+
+### Running in Docker
+
+To run the app using Docker, execute the following command:
+
+```bash
+docker run --name movies -p 3000:3000 -e API_URL=http://localhost:8000/api/v1 marusya1/movies-frontend
+```
