@@ -58,8 +58,11 @@ src/
 
 ### Running in Docker
 
-To run the app using Docker, execute the following command:
+To run the app using Docker, make sure the backend API is available at http://localhost:8000/api/v1.
+
+Then execute the following command:
 
 ```bash
-docker run --name movies -p 3000:3000 -e API_URL=http://localhost:8000/api/v1 marusya1/movies-frontend
+docker run --name movies-frontend -p 3000:3000 -e VITE_API_URL=http://localhost:8000/api/v1 marusya1/movies-frontend
+
 ```

@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { parseMoviesFromText } from "../../utils/parseMoviesFromText";
-import { addManyMovies } from "../../features/getMoviesSlice";
+import { addManyMovies, loadMovies } from "../../features/getMoviesSlice";
 import { selectFilteredMovies } from "../../features/selectors";
 import { UploadedFile } from "../../types/UploadedFile";
 import { Loader } from "../Loader";
@@ -12,9 +12,23 @@ import styles from "./MovieList.module.scss";
 
 const MovieList = () => {
   const dispatch = useAppDispatch();
+
   const movies = useAppSelector(selectFilteredMovies);
+  const status = useAppSelector((state) => state.allMovies.status);
+  const loaded = useAppSelector((state) => state.allMovies.loaded);
+
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    dispatch(loadMovies());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (loaded) {
+      console.log("🎬 Завантажено фільми:", movies);
+    }
+  }, [loaded, movies]);
 
   const handleFileUpload = async (files: UploadedFile[]) => {
     setIsLoading(true);
@@ -24,12 +38,22 @@ const MovieList = () => {
         parseMoviesFromText(file.content),
       );
       dispatch(addManyMovies(allParsedMovies));
-    } catch {
-      setErrorMessage("Something went wrong");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error ? error.message : "Something went wrong",
+      );
     } finally {
       setIsLoading(false);
     }
   };
+
+  if (status === "loading") {
+    return <Loader />;
+  }
+
+  if (status === "failed") {
+    return <ErrorMessage message="Failed to load movies from server" />;
+  }
 
   return (
     <>

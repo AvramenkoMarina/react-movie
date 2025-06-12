@@ -14,6 +14,7 @@ export interface MoviesState {
   searchQuery: string;
   sortAscending: boolean;
   status: Status;
+  token: string;
 }
 
 const initialState: MoviesState = {
@@ -23,26 +24,32 @@ const initialState: MoviesState = {
   searchQuery: "",
   sortAscending: true,
   status: "idle",
+  token: "",
 };
 
 export const loadMovies = createAsyncThunk(
-  "movies/load",
-  async (_, { rejectWithValue }) => {
+  "movies/loadFromApi",
+  async (_, { getState, rejectWithValue }) => {
     try {
-      return await fetchMovies();
-    } catch (err: unknown) {
-      const message =
-        err instanceof Error ? err.message : "Failed to load movies";
-      return rejectWithValue(message);
+      const { token } = (getState() as { movies: MoviesState }).movies;
+      if (!token) throw new Error("No token available");
+
+      const movies = await fetchMovies(token);
+      return movies;
+    } catch (err) {
+      return rejectWithValue(err instanceof Error ? err.message : "API error");
     }
   },
 );
 
 export const createMovie = createAsyncThunk(
   "movies/create",
-  async (movieData: Omit<Movie, "id">, { rejectWithValue }) => {
+  async (movieData: Omit<Movie, "id">, { getState, rejectWithValue }) => {
     try {
-      return await apiAddMovie(movieData);
+      const { token } = (getState() as { movies: MoviesState }).movies;
+      if (!token) throw new Error("No token available");
+
+      return await apiAddMovie(movieData, token);
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "Failed to create movie";
@@ -53,13 +60,16 @@ export const createMovie = createAsyncThunk(
 
 export const uploadMovieFile = createAsyncThunk(
   "movies/upload",
-  async (fileContent: string, { rejectWithValue }) => {
+  async (fileContent: string, { getState, rejectWithValue }) => {
     try {
-      return await uploadMovies(fileContent);
-    } catch (err: unknown) {
-      const message =
-        err instanceof Error ? err.message : "Failed to upload movies";
-      return rejectWithValue(message);
+      const { token } = (getState() as { movies: MoviesState }).movies;
+      if (!token) throw new Error("No token available");
+
+      return await uploadMovies(fileContent, token);
+    } catch (err) {
+      return rejectWithValue(
+        err instanceof Error ? err.message : "Upload error",
+      );
     }
   },
 );
@@ -92,12 +102,17 @@ export const getMoviesSlice = createSlice({
       );
       state.sortAscending = !state.sortAscending;
     },
+
     setError: (state, action: PayloadAction<boolean>) => {
       state.error = action.payload;
     },
 
     setLoaded: (state, action: PayloadAction<boolean>) => {
       state.loaded = action.payload;
+    },
+
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -133,4 +148,5 @@ export const {
   sortByTitle,
   setError,
   setLoaded,
+  setToken,
 } = getMoviesSlice.actions;

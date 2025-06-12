@@ -31,7 +31,7 @@ const Form: React.FC<FormProps> = ({ formData, onChange }) => {
       {inputs.map(({ name, placeholder }, index) => (
         <input
           key={name}
-          ref={index === 0 ? firstInputRef : undefined} // Додаємо ref лише до першого інпуту
+          ref={index === 0 ? firstInputRef : undefined}
           type="text"
           name={name}
           placeholder={placeholder}
