@@ -54,3 +54,21 @@ docker run --name movies-frontend -p 3000:3000 -e VITE_API_URL=http://localhost:
 ```
 
 - Open http://localhost:3000 in your browser.
+
+# Stop and remove the old container
+
+```bash
+docker stop movies-frontend
+
+```
+
+```bash
+docker rm movies-frontend
+
+```
+
+# Rebuild the Docker image with your changes
+
+```bash
+docker build -t marusya1/movies-frontend .
+```
