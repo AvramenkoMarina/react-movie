@@ -51,23 +51,4 @@
     text-align: center;
     gap: 15px;
   }
-
-  &__button {
-    background-color: #000;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
-
-    &:hover {
-      background-color: #4338ca;
-      box-shadow: 0 6px 18px rgba(67, 56, 202, 0.35);
-      transform: translateY(-1px);
-    }
-  }
 }

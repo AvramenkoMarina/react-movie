@@ -21,4 +21,10 @@
   @media (min-width: 1280px) {
     padding-inline: 4rem;
   }
+
+  &__noResults {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+  }
 }

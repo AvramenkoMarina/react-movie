@@ -19,7 +19,7 @@ const FileUploader: React.FC<Props> = ({ onFilesUpload }) => {
     if (!file) return;
 
     if (!isTxtFile(file.name)) {
-      setErrorMessage("Підтримуються лише .txt файли.");
+      setErrorMessage("Only .txt files are supported.");
       event.target.value = "";
       return;
     }
@@ -35,12 +35,12 @@ const FileUploader: React.FC<Props> = ({ onFilesUpload }) => {
         };
         onFilesUpload([uploadedFile]);
       } else {
-        setErrorMessage("Не вдалося зчитати файл.");
+        setErrorMessage("Failed to read file.");
       }
     };
 
     reader.onerror = () => {
-      setErrorMessage("Сталася помилка при зчитуванні файлу.");
+      setErrorMessage("Error occurred while reading file.");
     };
 
     reader.readAsText(file);
@@ -53,7 +53,7 @@ const FileUploader: React.FC<Props> = ({ onFilesUpload }) => {
         htmlFor="file-loader-button"
         className={styles.fileUpload__customButton}
       >
-        Завантажити текстовий файл
+        Upload Text File
       </label>
 
       <input

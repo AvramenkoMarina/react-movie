@@ -1,8 +1,10 @@
+import { getToken } from "../services/auth";
 import { Movie } from "../types/Movie";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api/v1";
 
-export const fetchMovies = async (token: string): Promise<Movie[]> => {
+export const fetchMovies = async (): Promise<Movie[]> => {
+  const token = await getToken();
   const response = await fetch(`${API_URL}/movies`, {
     headers: {
       Authorization: token,

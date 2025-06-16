@@ -3,7 +3,7 @@ import { getMoviesSlice } from "../features/getMoviesSlice";
 
 export const store = configureStore({
   reducer: {
-    allMovies: getMoviesSlice.reducer,
+    movies: getMoviesSlice.reducer,
   },
 });
 
